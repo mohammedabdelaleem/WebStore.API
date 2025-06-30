@@ -3,17 +3,20 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebStore.API.Persistance;
 
 #nullable disable
 
-namespace WebStore.API.Persistance.Migrations
+namespace WebStore.API.WebStore.API.Persistance.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250630144307_Basics")]
+    partial class Basics
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,6 +48,64 @@ namespace WebStore.API.Persistance.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ClaimType = "permissions",
+                            ClaimValue = "users:read",
+                            RoleId = "0197bc5d-5be1-7911-829d-e4d3848c6300"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ClaimType = "permissions",
+                            ClaimValue = "users:add",
+                            RoleId = "0197bc5d-5be1-7911-829d-e4d3848c6300"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ClaimType = "permissions",
+                            ClaimValue = "users:update",
+                            RoleId = "0197bc5d-5be1-7911-829d-e4d3848c6300"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ClaimType = "permissions",
+                            ClaimValue = "users:delete",
+                            RoleId = "0197bc5d-5be1-7911-829d-e4d3848c6300"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ClaimType = "permissions",
+                            ClaimValue = "roles:read",
+                            RoleId = "0197bc5d-5be1-7911-829d-e4d3848c6300"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ClaimType = "permissions",
+                            ClaimValue = "roles:add",
+                            RoleId = "0197bc5d-5be1-7911-829d-e4d3848c6300"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            ClaimType = "permissions",
+                            ClaimValue = "roles:update",
+                            RoleId = "0197bc5d-5be1-7911-829d-e4d3848c6300"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            ClaimType = "permissions",
+                            ClaimValue = "roles:delete",
+                            RoleId = "0197bc5d-5be1-7911-829d-e4d3848c6300"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>

@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace WebStore.API.Persistance.Migrations
+namespace WebStore.API.WebStore.API.Persistance.Migrations
 {
     /// <inheritdoc />
-    public partial class Auth_BackgroundJobs_Serilog_User_Roles_UserRolesDefault : Migration
+    public partial class Basics : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -199,6 +199,21 @@ namespace WebStore.API.Persistance.Migrations
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "IsDisabled", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[] { "0197bc5d-5be1-7ab2-8b83-4e03413fc18b", 0, "0197bc5d-5be1-7cd4-8f0b-b031c079b446", "admin@web-store.com", true, "web-strore", false, "admin", false, null, "ADMIN@WEB-STORE.COM", "ADMIN", "AQAAAAIAAYagAAAAEOm19rPH9+gX4oopeWRXkyo+gPyFA3OBPZVkNori56HqKq38sCBNntaiBa7n8sADpA==", null, false, "0197bc5d-5be1-772b-a9d0-a42eb05deba2", false, "ADMIN" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoleClaims",
+                columns: new[] { "Id", "ClaimType", "ClaimValue", "RoleId" },
+                values: new object[,]
+                {
+                    { 1, "permissions", "users:read", "0197bc5d-5be1-7911-829d-e4d3848c6300" },
+                    { 2, "permissions", "users:add", "0197bc5d-5be1-7911-829d-e4d3848c6300" },
+                    { 3, "permissions", "users:update", "0197bc5d-5be1-7911-829d-e4d3848c6300" },
+                    { 4, "permissions", "users:delete", "0197bc5d-5be1-7911-829d-e4d3848c6300" },
+                    { 5, "permissions", "roles:read", "0197bc5d-5be1-7911-829d-e4d3848c6300" },
+                    { 6, "permissions", "roles:add", "0197bc5d-5be1-7911-829d-e4d3848c6300" },
+                    { 7, "permissions", "roles:update", "0197bc5d-5be1-7911-829d-e4d3848c6300" },
+                    { 8, "permissions", "roles:delete", "0197bc5d-5be1-7911-829d-e4d3848c6300" }
+                });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",

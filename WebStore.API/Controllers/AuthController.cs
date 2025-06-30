@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
 
 namespace WebStore.API.Controllers;
 [Route("[controller]")]
 [ApiController]
-
+[ApiVersion(1)]
+[ApiVersion(2)]
 public class AuthController(IAuthService authService, ILogger<AuthController> logger) : ControllerBase
 {
 	private readonly IAuthService _authService = authService;

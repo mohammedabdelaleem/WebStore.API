@@ -1,4 +1,6 @@
-﻿using FluentValidation;
+﻿using Asp.Versioning;
+using Asp.Versioning.ApiExplorer;
+using FluentValidation;
 using Hangfire;
 using Mapster;
 using MapsterMapper;
@@ -9,6 +11,7 @@ using SharpGrip.FluentValidation.AutoValidation.Mvc.Extensions;
 using System.Reflection;
 using System.Text;
 using WebStore.API.Authentication;
+using WebStore.API.OpenApiTransformers;
 using WebStore.API.Persistance;
 using WebStore.API.Services;
 using WebStore.API.Settings;
@@ -24,7 +27,7 @@ public static class DependencyInjection
 
 
 		services.AddControllers();
-		services.AddOpenApi();
+		
 
 		services.AddAuthConfig(configuration);
 
@@ -42,6 +45,8 @@ public static class DependencyInjection
 
 
 		services.AddHttpContextAccessor();
+		services.AddScoped<IUserService, UserService>();
+		services.AddScoped<IRoleService, RoleService>();
 
 
 		services.AddOptions<MailSettings>()
@@ -49,7 +54,23 @@ public static class DependencyInjection
 			.ValidateDataAnnotations()
 			.ValidateOnStart();
 
+		services.AddApiVersioning(options =>
+		{
+			options.DefaultApiVersion = new ApiVersion(1);
+			options.AssumeDefaultVersionWhenUnspecified = true;
+			options.ReportApiVersions = true;
 
+			options.ApiVersionReader = new HeaderApiVersionReader("x-api-version");
+		})
+			.AddApiExplorer(options =>
+			{
+				options.GroupNameFormat = "'v'V";
+				options.SubstituteApiVersionInUrl = true;
+			});
+
+		services
+			.AddEndpointsApiExplorer()
+			.AddOpenApiServices();
 
 		return services;
 	}
@@ -163,6 +184,23 @@ public static class DependencyInjection
 		.UseSqlServerStorage(configuration.GetConnectionString("HangfireConnection")));
 
 		services.AddHangfireServer();
+
+		return services;
+	}
+
+	private static IServiceCollection AddOpenApiServices(this IServiceCollection services)
+	{
+		var serviceProvider = services.BuildServiceProvider();
+		var apiVersionDescriptionProvider = serviceProvider.GetRequiredService<IApiVersionDescriptionProvider>();
+
+		foreach (var description in apiVersionDescriptionProvider.ApiVersionDescriptions)
+		{
+			services.AddOpenApi(description.GroupName, options =>
+			{
+				options.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
+				options.AddDocumentTransformer(new ApiVersioningTransformer(description));
+			});
+		}
 
 		return services;
 	}
