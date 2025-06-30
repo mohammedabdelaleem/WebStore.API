@@ -2,3 +2,16 @@
 global using WebStore.API.Abstractions.Consts;
 global using Microsoft.AspNetCore.Identity;
 global using Microsoft.EntityFrameworkCore;
+global using System.ComponentModel.DataAnnotations;
+global using WebStore.API.Abstractions;
+global using WebStore.API.Errors;
+global using WebStore.API.Contracts.Auth;
+global using Mapster;
+global using Microsoft.AspNetCore.Identity.UI.Services;
+global using Microsoft.AspNetCore.WebUtilities;
+global using System.Security.Cryptography;
+global using System.Text;
+global using WebStore.API.Authentication;
+global using WebStore.API.Helpers;
+global using WebStore.API.Persistance;
+global using WebStore.API.Services;

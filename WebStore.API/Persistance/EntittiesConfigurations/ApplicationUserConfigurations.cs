@@ -16,6 +16,16 @@ public class ApplicationUserConfigurations : IEntityTypeConfiguration<Applicatio
 					.HasMaxLength(225);
 
 
+
+
+		builder
+			.OwnsMany(x => x.RefreshTokens)
+			.ToTable("RefreshTokens") // instead of RefreshToken
+			.WithOwner()
+			.HasForeignKey("UserId"); // instead of ApplicaionUserId // after migraiton
+
+
+
 		builder.HasData(new ApplicationUser
 		{
 			Id = DefaultUsers.Admin.Id,
