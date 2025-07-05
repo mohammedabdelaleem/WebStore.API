@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using System.Reflection.Emit;
-using WebStore.API.Entities;
 
 namespace WebStore.API.Persistance;
 
@@ -11,6 +8,7 @@ public class AppDbContext(
 	IdentityDbContext<ApplicationUser,ApplicationRole,string>(options)
 {
 
+	public DbSet<MenuItem> MenuItems { get; set; }
 	protected override void OnModelCreating(ModelBuilder builder)
 	{
 		builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
