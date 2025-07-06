@@ -9,11 +9,11 @@ using WebStore.API.Persistance;
 
 #nullable disable
 
-namespace WebStore.API.WebStore.API.Persistance.Migrations
+namespace WebStore.API.Persistance.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250630144307_Basics")]
-    partial class Basics
+    [Migration("20250706182147_initAfterDeleting")]
+    partial class initAfterDeleting
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -345,6 +345,149 @@ namespace WebStore.API.WebStore.API.Persistance.Migrations
                             SecurityStamp = "0197bc5d-5be1-772b-a9d0-a42eb05deba2",
                             TwoFactorEnabled = false,
                             UserName = "ADMIN"
+                        });
+                });
+
+            modelBuilder.Entity("WebStore.API.Entities.MenuItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<double>("Price")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("float(10)");
+
+                    b.Property<string>("SpecialTag")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MenuItems");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Category = "Appetizer",
+                            Description = "Fusc tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.",
+                            ImageUrl = "images/1.jpg",
+                            Name = "Spring Roll",
+                            Price = 7.9900000000000002,
+                            SpecialTag = ""
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Category = "Appetizer",
+                            Description = "Fusc tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.",
+                            ImageUrl = "images/2.jpg",
+                            Name = "Idli",
+                            Price = 8.9900000000000002,
+                            SpecialTag = ""
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Category = "Appetizer",
+                            Description = "Fusc tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.",
+                            ImageUrl = "images/3.jpg",
+                            Name = "Panu Puri",
+                            Price = 8.9900000000000002,
+                            SpecialTag = "Best Seller"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Category = "Entrée",
+                            Description = "Fusc tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.",
+                            ImageUrl = "images/4.jpg",
+                            Name = "Hakka Noodles",
+                            Price = 10.99,
+                            SpecialTag = ""
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Category = "Entrée",
+                            Description = "Fusc tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.",
+                            ImageUrl = "images/5.jpg",
+                            Name = "Malai Kofta",
+                            Price = 12.99,
+                            SpecialTag = "Top Rated"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Category = "Entrée",
+                            Description = "Fusc tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.",
+                            ImageUrl = "images/6.jpg",
+                            Name = "Paneer Pizza",
+                            Price = 11.99,
+                            SpecialTag = ""
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Category = "Entrée",
+                            Description = "Fusc tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.",
+                            ImageUrl = "images/7.jpg",
+                            Name = "Paneer Tikka",
+                            Price = 13.99,
+                            SpecialTag = "Chef's Special"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Category = "Dessert",
+                            Description = "Fusc tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.",
+                            ImageUrl = "images/8.jpg",
+                            Name = "Carrot Love",
+                            Price = 5.9900000000000002,
+                            SpecialTag = ""
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Category = "Dessert",
+                            Description = "Fusc tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.",
+                            ImageUrl = "images/9.jpg",
+                            Name = "Rasmalai",
+                            Price = 8.9900000000000002,
+                            SpecialTag = "Chef's Special"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Category = "Dessert",
+                            Description = "Fusc tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.",
+                            ImageUrl = "images/10.jpg",
+                            Name = "Sweet Rolls",
+                            Price = 9.9900000000000002,
+                            SpecialTag = "Top Rated"
                         });
                 });
 

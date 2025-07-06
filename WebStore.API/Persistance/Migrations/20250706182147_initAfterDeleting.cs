@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace WebStore.API.WebStore.API.Persistance.Migrations
+namespace WebStore.API.Persistance.Migrations
 {
     /// <inheritdoc />
-    public partial class Basics : Migration
+    public partial class initAfterDeleting : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -55,6 +55,24 @@ namespace WebStore.API.WebStore.API.Persistance.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MenuItems",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
+                    SpecialTag = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Category = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Price = table.Column<double>(type: "float(10)", precision: 10, scale: 2, nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MenuItems", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -201,6 +219,23 @@ namespace WebStore.API.WebStore.API.Persistance.Migrations
                 values: new object[] { "0197bc5d-5be1-7ab2-8b83-4e03413fc18b", 0, "0197bc5d-5be1-7cd4-8f0b-b031c079b446", "admin@web-store.com", true, "web-strore", false, "admin", false, null, "ADMIN@WEB-STORE.COM", "ADMIN", "AQAAAAIAAYagAAAAEOm19rPH9+gX4oopeWRXkyo+gPyFA3OBPZVkNori56HqKq38sCBNntaiBa7n8sADpA==", null, false, "0197bc5d-5be1-772b-a9d0-a42eb05deba2", false, "ADMIN" });
 
             migrationBuilder.InsertData(
+                table: "MenuItems",
+                columns: new[] { "Id", "Category", "Description", "ImageUrl", "Name", "Price", "SpecialTag" },
+                values: new object[,]
+                {
+                    { 1, "Appetizer", "Fusc tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.", "images/1.jpg", "Spring Roll", 7.9900000000000002, "" },
+                    { 2, "Appetizer", "Fusc tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.", "images/2.jpg", "Idli", 8.9900000000000002, "" },
+                    { 3, "Appetizer", "Fusc tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.", "images/3.jpg", "Panu Puri", 8.9900000000000002, "Best Seller" },
+                    { 4, "Entrée", "Fusc tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.", "images/4.jpg", "Hakka Noodles", 10.99, "" },
+                    { 5, "Entrée", "Fusc tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.", "images/5.jpg", "Malai Kofta", 12.99, "Top Rated" },
+                    { 6, "Entrée", "Fusc tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.", "images/6.jpg", "Paneer Pizza", 11.99, "" },
+                    { 7, "Entrée", "Fusc tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.", "images/7.jpg", "Paneer Tikka", 13.99, "Chef's Special" },
+                    { 8, "Dessert", "Fusc tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.", "images/8.jpg", "Carrot Love", 5.9900000000000002, "" },
+                    { 9, "Dessert", "Fusc tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.", "images/9.jpg", "Rasmalai", 8.9900000000000002, "Chef's Special" },
+                    { 10, "Dessert", "Fusc tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.", "images/10.jpg", "Sweet Rolls", 9.9900000000000002, "Top Rated" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "AspNetRoleClaims",
                 columns: new[] { "Id", "ClaimType", "ClaimValue", "RoleId" },
                 values: new object[,]
@@ -277,6 +312,9 @@ namespace WebStore.API.WebStore.API.Persistance.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "MenuItems");
 
             migrationBuilder.DropTable(
                 name: "RefreshTokens");

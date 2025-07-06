@@ -48,6 +48,9 @@ public static class DependencyInjection
 		services.AddScoped<IUserService, UserService>();
 		services.AddScoped<IRoleService, RoleService>();
 
+		services.AddScoped<IMenuItemService, MenuItemService>();
+
+
 
 		services.AddOptions<MailSettings>()
 			.BindConfiguration(nameof(MailSettings))

@@ -7,5 +7,5 @@ public record CreateMenuItemRequest(
 	 string SpecialTag ,
 	 string Category ,
 	 double Price ,
-	 string Image 
+	 IFormFile Image 
 	);

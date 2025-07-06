@@ -23,3 +23,4 @@ global using WebStore.API.Extensions;
 global using WebStore.API.Authentication.Filters;
 global using WebStore.API.Contracts.Roles;
 global using Asp.Versioning;
+global using WebStore.API.Settings;
