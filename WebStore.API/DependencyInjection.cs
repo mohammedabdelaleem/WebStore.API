@@ -1,26 +1,18 @@
-﻿using Asp.Versioning;
-using Asp.Versioning.ApiExplorer;
-using FluentValidation;
+﻿using Asp.Versioning.ApiExplorer;
+using FluentValidation.AspNetCore;
 using Hangfire;
-using Mapster;
 using MapsterMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
-using SharpGrip.FluentValidation.AutoValidation.Mvc.Extensions;
 using System.Reflection;
-using System.Text;
-using WebStore.API.Authentication;
+using WebStore.API.Mapping;
 using WebStore.API.OpenApiTransformers;
-using WebStore.API.Persistance;
-using WebStore.API.Services;
-using WebStore.API.Settings;
 
 namespace WebStore.API;
 
 public static class DependencyInjection
 {
-	public static IServiceCollection AddDependancies(this IServiceCollection services, IConfiguration configuration)
+	public static IServiceCollection AddDependancies(this IServiceCollection services, IConfiguration configuration, IWebHostEnvironment env)
 	{
 		var constr = configuration.GetConnectionString("constr") ??
 		throw new InvalidOperationException("There is no Connection String For The 'DefaultConStr' Key ");
@@ -34,7 +26,7 @@ public static class DependencyInjection
 		services.AddTransient<IEmailSender, EmailService>();
 
 		services
-			.AddMappsterrConfig()
+			.AddMappsterrConfig(env)
 			.AddFluentValidationConfig()
 			.AddDataBaseConfig(configuration);
 
@@ -158,14 +150,21 @@ public static class DependencyInjection
 		return services;
 	}
 
-	private static IServiceCollection AddMappsterrConfig(this IServiceCollection services)
+	private static IServiceCollection AddMappsterrConfig(this IServiceCollection services, IWebHostEnvironment env)
 	{
 		var mappingConfigurations = TypeAdapterConfig.GlobalSettings;
-		mappingConfigurations.Scan(Assembly.GetExecutingAssembly());
 
+		//mappingConfigurations.Scan(Assembly.GetExecutingAssembly());
+		//services.AddSingleton<IMapper>(new Mapper(mappingConfigurations));
+
+
+		// Manually register the mapping : because of IWebHostEnvironment
+		new MappingConfigurations(env).Register(mappingConfigurations);
 		services.AddSingleton<IMapper>(new Mapper(mappingConfigurations));
 
 		return services;
+
+
 	}
 
 	private static IServiceCollection AddFluentValidationConfig(this IServiceCollection services)

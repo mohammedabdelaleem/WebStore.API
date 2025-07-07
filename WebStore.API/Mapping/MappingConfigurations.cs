@@ -1,9 +1,10 @@
-﻿using WebStore.API.Contracts.Users;
+﻿using WebStore.API.Contracts.MenuItem;
 
 namespace WebStore.API.Mapping;
 
-public class MappingConfigurations : IRegister
+public class MappingConfigurations(IWebHostEnvironment webHostEnvironment) : IRegister
 {
+	private readonly string _rootPath = webHostEnvironment.WebRootPath.Replace("\\","/");
 	public void Register(TypeAdapterConfig config)
 	{
 		
@@ -19,5 +20,8 @@ public class MappingConfigurations : IRegister
 		config.NewConfig<UpdateUserRequest, ApplicationUser>()
 			.Map(dest => dest.NormalizedUserName, src => src.Email.ToUpper()); // update need this  
 
+
+		config.NewConfig<MenuItem, MenuItemResponse>()
+			.Map(dest=>dest.ImageUrl, src => Path.Combine(_rootPath,src.ImageUrl));
 	}
 }

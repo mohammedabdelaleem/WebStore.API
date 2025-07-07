@@ -7,8 +7,7 @@ using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-builder.Services.AddDependancies(builder.Configuration);
+builder.Services.AddDependancies(builder.Configuration, builder.Environment);
 
 builder.Host.UseSerilog((context, configuration) =>
 	configuration.ReadFrom.Configuration(context.Configuration));

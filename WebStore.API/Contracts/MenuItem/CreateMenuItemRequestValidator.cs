@@ -17,21 +17,20 @@ public class CreateMenuItemRequestValidator : AbstractValidator<CreateMenuItemRe
 
 
 		RuleFor(x => x.SpecialTag)
-			.Length(50);
+			.MinimumLength(5);
 
 		RuleFor(x => x.Category)
 			.NotEmpty()
-			.Length(50);
+			.MinimumLength(3);
 
 		RuleFor(x => x.Price)
 			.NotEmpty()
 			.GreaterThanOrEqualTo(5);
 
+
 		RuleFor(x => x.Image)
 			.SetValidator(new FileNameValidator())
 			.SetValidator(new FileSizeValidator())
 			.SetValidator(new AllowedSignaturesValidator());
-
-
 	}
 }

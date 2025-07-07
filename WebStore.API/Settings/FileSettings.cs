@@ -7,13 +7,14 @@ public static class FileSettings
 
 	public static readonly string[] AllowedImageSignatures =
 {
-	"FF-D8-FF",         // JPEG
-    //"89-50-4E-47",      // PNG
-    //"47-49-46-38",      // GIF
+
+	"FF-D8",         // JPEG,JPG
+    "89-50",      // PNG
+    //"47-49",      // GIF
     //"42-4D",            // BMP
-    //"49-49-2A-00",      // TIFF (little endian)
-    //"4D-4D-00-2A",      // TIFF (big endian)
-    //"52-49-46-46"       // WEBP (requires deeper validation)
+    //"49-49",      // TIFF (little endian)
+    //"4D-4D",      // TIFF (big endian)
+    //"52-49"       // WEBP (requires deeper validation)
 };
 
 	public static string ExtractFileSignature(IFormFile file, bool videoStream = false)

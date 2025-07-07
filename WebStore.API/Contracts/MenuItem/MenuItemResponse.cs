@@ -7,5 +7,6 @@ public record MenuItemResponse
 	 string Description,
 	 string SpecialTag,
 	 string Category,
-	 double Price
+	 double Price,
+	 string ImageUrl
 	);
