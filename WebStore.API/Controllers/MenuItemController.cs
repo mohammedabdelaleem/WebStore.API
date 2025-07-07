@@ -29,4 +29,20 @@ public class MenuItemController(IMenuItemService menuItemService) : ControllerBa
 		var result = await _menuItemService.Add(request, cancellationToken);
 		return result.IsSuccess ? CreatedAtAction(nameof(Get), new {id=result.Value.Id}, result.Value) : result.ToProblem();
 	}
+
+	[HttpPut("{id}")]
+	public async Task<IActionResult> Add([FromRoute] int id, [FromForm] UpdateMenuItemRequest request, CancellationToken cancellationToken = default)
+	{
+		var result = await _menuItemService.Update(id,request, cancellationToken);
+		return result.IsSuccess ? NoContent() : result.ToProblem();
+	}
+
+	[HttpDelete("{id}")]
+	public async Task<IActionResult> Add([FromRoute] int id, CancellationToken cancellationToken = default)
+	{
+		var result = await _menuItemService.DeleteAsync(id, cancellationToken);
+		return result.IsSuccess ? NoContent() : result.ToProblem();
+	}
+
+
 }

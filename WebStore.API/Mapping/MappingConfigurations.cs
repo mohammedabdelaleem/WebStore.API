@@ -25,10 +25,7 @@ public class MappingConfigurations(IWebHostEnvironment webHostEnvironment) : IRe
 			.Map(dest=>dest.ImageUrl, src => Path.Combine(_rootPath, src.ImageUrl));
 
 		config.NewConfig<CreateMenuItemRequest, MenuItem>()
-		.Map(dest => dest.ImageUrl, src => Path.Combine("images", src.Image.FileName));
-
-		config.NewConfig<UpdateMenuItemRequest, MenuItem>()
-		.Map(dest => dest.ImageUrl, src => Path.Combine("images", src.Image.FileName));
+		.Map(dest => dest.ImageUrl, src => $"images/{src.Image.FileName}");
 
 
 	}

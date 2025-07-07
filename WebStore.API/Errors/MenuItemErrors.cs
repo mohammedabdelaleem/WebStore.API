@@ -15,6 +15,8 @@ public record MenuItemErrors
 	public static readonly Error SavingError
 		= new Error("MenuItem.SavingError", "Error While Savnig MenuItem ", StatusCodes.Status500InternalServerError);
 
+	public static readonly Error InvalidInfo
+		= new Error("MenuItem.InvalidInfo", "Recheck The Info", StatusCodes.Status400BadRequest);
 
 
 }
