@@ -34,6 +34,35 @@ public class MenuItemService(
 		try
 		{
 			var menuItem = request.Adapt<MenuItem>();
+
+			var uniqueFileName = $"{Guid.CreateVersion7()}{request.Image.FileName}";
+			menuItem.ImageUrl = Path.Combine("images", uniqueFileName);
+
+			var path = Path.Combine(_imagesPath, uniqueFileName);
+
+			using var stream = File.Create(path);
+			await request.Image.CopyToAsync(stream, cancellationToken);
+
+
+			await _context.AddAsync(menuItem, cancellationToken);
+			await _context.SaveChangesAsync(cancellationToken);
+
+			return Result.Success(menuItem.Adapt<MenuItemResponse>());
+
+		}
+		catch
+		{
+			return Result.Failure<MenuItemResponse>(MenuItemErrors.SavingError);
+		}
+	}
+
+
+	public async Task<Result<MenuItemResponse>> Update(CreateMenuItemRequest request, CancellationToken cancellationToken = default)
+	{
+
+		try
+		{
+			var menuItem = request.Adapt<MenuItem>();
 			menuItem.ImageUrl = Path.Combine("images", request.Image.FileName);
 
 			var path = Path.Combine(_imagesPath, request.Image.FileName);
@@ -53,4 +82,5 @@ public class MenuItemService(
 			return Result.Failure<MenuItemResponse>(MenuItemErrors.SavingError);
 		}
 	}
+
 }

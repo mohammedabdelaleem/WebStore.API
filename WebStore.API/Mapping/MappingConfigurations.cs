@@ -22,6 +22,14 @@ public class MappingConfigurations(IWebHostEnvironment webHostEnvironment) : IRe
 
 
 		config.NewConfig<MenuItem, MenuItemResponse>()
-			.Map(dest=>dest.ImageUrl, src => Path.Combine(_rootPath,src.ImageUrl));
+			.Map(dest=>dest.ImageUrl, src => Path.Combine(_rootPath, src.ImageUrl));
+
+		config.NewConfig<CreateMenuItemRequest, MenuItem>()
+		.Map(dest => dest.ImageUrl, src => Path.Combine("images", src.Image.FileName));
+
+		config.NewConfig<UpdateMenuItemRequest, MenuItem>()
+		.Map(dest => dest.ImageUrl, src => Path.Combine("images", src.Image.FileName));
+
+
 	}
 }
