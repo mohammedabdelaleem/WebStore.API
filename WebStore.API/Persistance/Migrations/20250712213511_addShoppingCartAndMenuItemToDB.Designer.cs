@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebStore.API.Persistance;
 
@@ -11,9 +12,11 @@ using WebStore.API.Persistance;
 namespace WebStore.API.Persistance.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250712213511_addShoppingCartAndMenuItemToDB")]
+    partial class addShoppingCartAndMenuItemToDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -366,7 +369,7 @@ namespace WebStore.API.Persistance.Migrations
 
                     b.HasIndex("ShoppingCartId");
 
-                    b.ToTable("CartItems", (string)null);
+                    b.ToTable("CartItems");
                 });
 
             modelBuilder.Entity("WebStore.API.Entities.MenuItem", b =>
@@ -407,7 +410,7 @@ namespace WebStore.API.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MenuItems", (string)null);
+                    b.ToTable("MenuItems");
 
                     b.HasData(
                         new
@@ -525,7 +528,7 @@ namespace WebStore.API.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ShoppingCarts", (string)null);
+                    b.ToTable("ShoppingCarts");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

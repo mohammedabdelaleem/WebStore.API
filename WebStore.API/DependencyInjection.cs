@@ -41,6 +41,7 @@ public static class DependencyInjection
 		services.AddScoped<IRoleService, RoleService>();
 
 		services.AddScoped<IMenuItemService, MenuItemService>();
+		services.AddScoped<IShoppingCartService, ShoppingCartService>();
 
 
 

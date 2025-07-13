@@ -5,10 +5,14 @@ namespace WebStore.API.Persistance;
 
 public class AppDbContext(
 	DbContextOptions<AppDbContext> options) :
-	IdentityDbContext<ApplicationUser,ApplicationRole,string>(options)
+	IdentityDbContext<ApplicationUser, ApplicationRole, string>(options)
 {
 
+
 	public DbSet<MenuItem> MenuItems { get; set; }
+	public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+	public DbSet<CartItem> CartItems { get; set; }
+
 	protected override void OnModelCreating(ModelBuilder builder)
 	{
 		builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
