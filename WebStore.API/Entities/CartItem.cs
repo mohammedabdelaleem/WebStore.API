@@ -11,9 +11,10 @@ public class CartItem
 
 	public MenuItem MenuItem { get; set; } = new();
 
-	public int Quantity { get; set; }
 
 	[ForeignKey(nameof(ShoppingCart))]
 	public int ShoppingCartId { get; set; }
+
+	public int Quantity { get; set; }
 
 }

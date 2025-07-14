@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebStore.API.Contracts.ShoppingCart;
 
 namespace WebStore.API.Controllerts;
 [Route("api/[controller]")]
@@ -9,9 +10,9 @@ public class ShoppingCateController(IShoppingCartService shoppingCartService) : 
 	private readonly IShoppingCartService _shoppingCartService = shoppingCartService;
 
 	[HttpPost]
-	public async Task<IActionResult> AddOrUpdateItemInCart(string userId, int menuItemId, int updatedQuantityBy, CancellationToken cancellationToken = default)
+	public async Task<IActionResult> AddOrUpdateItemInCart(CreateShoppingCartRequest request, CancellationToken cancellationToken = default)
 	{
-		var result = await _shoppingCartService.AddOrUpdateItemInCart(userId, menuItemId, updatedQuantityBy, cancellationToken);
+		var result = await _shoppingCartService.AddOrUpdateItemInCart(request, cancellationToken);
 	
 	   return  result.IsSuccess ? Created() : result.ToProblem();
 	}
