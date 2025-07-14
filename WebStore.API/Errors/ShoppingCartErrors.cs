@@ -5,7 +5,7 @@ public record ShoppingCartErrors
 {
 
 	public static readonly Error NotFound
-		= new Error("ShoppingCart.NotFound", "ShoppingCart With Given Id Not Found", StatusCodes.Status404NotFound);
+		= new Error("ShoppingCart.NotFound", "ShoppingCart With Given User Id Not Found", StatusCodes.Status404NotFound);
 
 
 	public static readonly Error ShoppingCartDuplicated

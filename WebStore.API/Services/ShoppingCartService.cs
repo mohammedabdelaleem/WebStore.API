@@ -13,7 +13,26 @@ public class ShoppingCartService(
 	private readonly ILogger<ShoppingCartService> _logger = logger;
 
 
-	public async Task<Result<ShoppingCartResponse>>
+	public async Task<Result<ShoppingCart>> GetShoppingCart(string userId, CancellationToken cancellationToken = default)
+	{
+		if (await _userManager.FindByIdAsync(userId) is not { })
+			return Result.Failure<ShoppingCart>(UserErrors.UserNotFound);
+
+		var shoppingCart = await _context.ShoppingCarts
+				.Include(s=>s.CartItems)
+				.ThenInclude(c=>c.MenuItem)
+				.FirstOrDefaultAsync(s=>s.UserId == userId, cancellationToken);
+
+		if(shoppingCart == null )
+			return Result.Failure<ShoppingCart>(ShoppingCartErrors.NotFound);
+
+
+		if (shoppingCart.CartItems != null && shoppingCart.CartItems.Count > 0)
+		shoppingCart.CartTotal = shoppingCart.CartItems.Sum(c => c.Quantity * c.MenuItem.Price);
+
+
+		return Result.Success(shoppingCart);
+	}
 
 	public async Task<Result> AddOrUpdateItemInCart(CreateShoppingCartRequest request, CancellationToken cancellationToken = default)
 	{

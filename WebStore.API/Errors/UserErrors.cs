@@ -5,6 +5,8 @@ public record UserErrors
 {
 	public static readonly Error InvalidCredintials = new Error("User.InvalidCredintials", "Invalid Email Or Password", StatusCodes.Status401Unauthorized);
 
+	public static readonly Error InvalidUserId = new Error("User.InvalidUserId", "Invalid UserId", StatusCodes.Status401Unauthorized);
+
 	public static readonly Error DisabledUser = new Error("User.DisabledUser", "Disabled User , Please Contact The Customer Service", StatusCodes.Status401Unauthorized);
 
 	public static readonly Error LockedUser = new Error("User.LockedUser", "Locked User , Please Contact The Customer Service", StatusCodes.Status401Unauthorized);

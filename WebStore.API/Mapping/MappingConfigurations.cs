@@ -27,6 +27,5 @@ public class MappingConfigurations(IWebHostEnvironment webHostEnvironment) : IRe
 		config.NewConfig<CreateMenuItemRequest, MenuItem>()
 		.Map(dest => dest.ImageUrl, src => $"images/{src.Image.FileName}");
 
-
 	}
 }

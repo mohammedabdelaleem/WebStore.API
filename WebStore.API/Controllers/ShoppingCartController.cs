@@ -1,13 +1,21 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using WebStore.API.Contracts.ShoppingCart;
+﻿namespace WebStore.API.Controllerts;
 
-namespace WebStore.API.Controllerts;
 [Route("api/[controller]")]
 [ApiController]
-public class ShoppingCateController(IShoppingCartService shoppingCartService) : ControllerBase
+public class ShoppingCartController(IShoppingCartService shoppingCartService) : ControllerBase
 {
 	private readonly IShoppingCartService _shoppingCartService = shoppingCartService;
+
+
+	[HttpGet("{userId:guid}")]
+	public async Task<IActionResult> Get([FromRoute]string userId, CancellationToken cancellationToken=default)
+	{
+		var result = await _shoppingCartService.GetShoppingCart(userId,cancellationToken);
+
+		return result.IsSuccess ? Ok(result.Value) : result.ToProblem();
+	}	
+
+
 
 	[HttpPost]
 	public async Task<IActionResult> AddOrUpdateItemInCart(CreateShoppingCartRequest request, CancellationToken cancellationToken = default)
