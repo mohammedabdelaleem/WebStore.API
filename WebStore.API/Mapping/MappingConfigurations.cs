@@ -1,5 +1,4 @@
-﻿using WebStore.API.Contracts.MenuItem;
-
+﻿
 namespace WebStore.API.Mapping;
 
 public class MappingConfigurations(IWebHostEnvironment webHostEnvironment) : IRegister

@@ -12,6 +12,9 @@ public class AppDbContext(
 	public DbSet<MenuItem> MenuItems { get; set; }
 	public DbSet<ShoppingCart> ShoppingCarts { get; set; }
 	public DbSet<CartItem> CartItems { get; set; }
+	public DbSet<Order> Orders { get; set; }
+	public DbSet<OrderDetails> OrderDetails { get; set; }
+
 
 	protected override void OnModelCreating(ModelBuilder builder)
 	{

@@ -1,6 +1,4 @@
-﻿using WebStore.API.Contracts.ShoppingCart;
-
-namespace WebStore.API.Services;
+﻿namespace WebStore.API.Services;
 
 public interface IShoppingCartService
 {

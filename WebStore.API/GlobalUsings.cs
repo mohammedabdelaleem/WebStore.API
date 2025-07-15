@@ -25,3 +25,4 @@ global using WebStore.API.Contracts.Roles;
 global using Asp.Versioning;
 global using WebStore.API.Settings;
 global using WebStore.API.Contracts.ShoppingCart;
+global using WebStore.API.Contracts.MenuItem;
