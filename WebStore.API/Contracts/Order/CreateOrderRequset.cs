@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
+﻿
 namespace WebStore.API.Contracts.Order;
 
 public record CreateOrderRequset

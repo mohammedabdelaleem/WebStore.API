@@ -50,7 +50,7 @@ public class UserService(
 	public async Task<Result<UserResponse>> GetAsync(string userId)
 	{
 		if (await _userManager.FindByIdAsync(userId) is not { } user)
-			return Result.Failure<UserResponse>(UserErrors.UserNotFound);
+			return Result.Failure<UserResponse>(UserErrors.NotFound);
 
 		var userRoles = await _userManager.GetRolesAsync(user);
 
@@ -108,7 +108,7 @@ public class UserService(
 			return Result.Failure(UserErrors.InvalidRoles);
 
 		if (await _userManager.FindByIdAsync(id) is not { } user)
-			return Result.Failure(UserErrors.UserNotFound);
+			return Result.Failure(UserErrors.NotFound);
 
 		user = request.Adapt(user);
 
@@ -137,7 +137,7 @@ public class UserService(
 	public async Task<Result> ToggleStatus(string id)
 	{
 		if (await _userManager.FindByIdAsync(id) is not { } user)
-			return Result.Failure(UserErrors.UserNotFound);
+			return Result.Failure(UserErrors.NotFound);
 
 		user.IsDisabled = !user.IsDisabled;
 
@@ -154,7 +154,7 @@ public class UserService(
 	public async Task<Result> UnLock(string id)
 	{
 		if (await _userManager.FindByIdAsync(id) is not { } user)
-			return Result.Failure(UserErrors.UserNotFound);
+			return Result.Failure(UserErrors.NotFound);
 
 		var result = await _userManager.SetLockoutEndDateAsync(user, null);
 

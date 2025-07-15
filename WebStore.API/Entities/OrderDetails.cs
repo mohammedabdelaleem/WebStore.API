@@ -10,7 +10,7 @@ public class OrderDetails
 
 	[ForeignKey(nameof(MenuItem))]
 	public int MenuItemId { get; set; }
-	public MenuItem MenuItem { get; set; } = new();
+	public MenuItem MenuItem { get; set; }
 	public int Quantity { get; set; }
 
 	// from menu item we could retrive the name and price for this menu item 

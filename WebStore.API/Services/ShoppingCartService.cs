@@ -16,7 +16,7 @@ public class ShoppingCartService(
 	public async Task<Result<ShoppingCart>> GetShoppingCart(string userId, CancellationToken cancellationToken = default)
 	{
 		if (await _userManager.FindByIdAsync(userId) is not { })
-			return Result.Failure<ShoppingCart>(UserErrors.UserNotFound);
+			return Result.Failure<ShoppingCart>(UserErrors.NotFound);
 
 		var shoppingCart = await _context.ShoppingCarts
 				.Include(s=>s.CartItems)
@@ -39,7 +39,7 @@ public class ShoppingCartService(
 		try
 		{
 			if (await _userManager.FindByIdAsync(request.UserId) is not { })
-				return Result.Failure(UserErrors.UserNotFound);
+				return Result.Failure(UserErrors.NotFound);
 
 
 			var shoppingCartDb = await _context.ShoppingCarts.Include(s => s.CartItems)

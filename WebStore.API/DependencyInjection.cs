@@ -19,7 +19,7 @@ public static class DependencyInjection
 
 
 		services.AddControllers();
-		
+
 
 		services.AddAuthConfig(configuration);
 
@@ -42,8 +42,7 @@ public static class DependencyInjection
 
 		services.AddScoped<IMenuItemService, MenuItemService>();
 		services.AddScoped<IShoppingCartService, ShoppingCartService>();
-
-
+		services.AddScoped<IOrderService, OrderService>();
 
 		services.AddOptions<MailSettings>()
 			.BindConfiguration(nameof(MailSettings))

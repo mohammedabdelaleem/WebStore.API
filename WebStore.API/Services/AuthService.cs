@@ -179,7 +179,7 @@ namespace WebStore.API.Services;
 
 			var user = await _userManager.FindByIdAsync(userId);
 			if (user == null)
-				return Result.Failure<AuthResponse>(UserErrors.UserNotFound);
+				return Result.Failure<AuthResponse>(UserErrors.NotFound);
 
 
 			if (user.IsDisabled)
@@ -207,12 +207,12 @@ namespace WebStore.API.Services;
 		{
 			var userId = _jWTProvider.ValidateTokenAndGetUserId(token);
 			if (userId == null)
-				return Result.Failure<bool>(UserErrors.UserNotFound);
+				return Result.Failure<bool>(UserErrors.NotFound);
 
 
 			var user = await _userManager.FindByIdAsync(userId);
 			if (user == null)
-				return Result.Failure(UserErrors.UserNotFound);
+				return Result.Failure(UserErrors.NotFound);
 
 
 			var userRefreshToken = user.RefreshTokens.SingleOrDefault(u => u.Token == refreshToken && u.IsActive);

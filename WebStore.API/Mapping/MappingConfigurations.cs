@@ -1,4 +1,6 @@
 ﻿
+using WebStore.API.Contracts.Order;
+
 namespace WebStore.API.Mapping;
 
 public class MappingConfigurations(IWebHostEnvironment webHostEnvironment) : IRegister
@@ -26,5 +28,8 @@ public class MappingConfigurations(IWebHostEnvironment webHostEnvironment) : IRe
 		config.NewConfig<CreateMenuItemRequest, MenuItem>()
 		.Map(dest => dest.ImageUrl, src => $"images/{src.Image.FileName}");
 
+		config.NewConfig<CreateOrderRequset, Order>()
+		.Map(dest => dest.OrderDate, src => DateTime.UtcNow)
+		.Map(dest => dest.Status, src => string.IsNullOrEmpty(src.Status) ? OrderStatus.Pending : src.Status);
 	}
 }

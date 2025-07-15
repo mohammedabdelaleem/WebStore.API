@@ -2,12 +2,22 @@
 
 public class CreateOrderRequsetValidator : AbstractValidator<CreateOrderRequset>
 {
-	public CreateOrderRequsetValidator()
+	private readonly AppDbContext _context;
+
+	public CreateOrderRequsetValidator(AppDbContext context)
 	{
-		RuleFor(x => x.PickupName).NotEmpty().Length(225);
-		RuleFor(x => x.PickupPhoneNumber).NotEmpty().Length(20);
-		RuleFor(x => x.PickupEmail).NotEmpty().Length(225);
-		RuleFor(x => x.Status).NotEmpty();
+		_context = context;
+
+
+		RuleFor(x => x.PickupName).NotEmpty().MaximumLength(225);
+		RuleFor(x => x.PickupPhoneNumber).NotEmpty()
+			 .Matches(RegexPatterns.Number)
+			 .WithMessage("Only numbers are allowed.")
+			 .MaximumLength(20);
+
+
+		RuleFor(x => x.PickupEmail).NotEmpty().EmailAddress().MaximumLength(225);
+		//RuleFor(x => x.Status).NotEmpty();
 		RuleFor(x => x.UserId).NotEmpty();
 		RuleFor(x => x.StripePaymentIntentId).NotEmpty();
 		RuleFor(x => x.TotalItems).NotEmpty();
@@ -28,5 +38,7 @@ public class CreateOrderRequsetValidator : AbstractValidator<CreateOrderRequset>
 			.WithMessage("Only Distinct Order Details....")
 			.When(x=> x.OrderDetailsCreateDTO is not null);
 
+		RuleForEach(x=>x.OrderDetailsCreateDTO)
+			.SetInheritanceValidator(x=>x.Add(new CreateOrderDetailsRequsetValidator(_context)));
 	}
 }
