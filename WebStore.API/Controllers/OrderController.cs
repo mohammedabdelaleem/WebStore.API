@@ -41,4 +41,12 @@ public class OrderController(IOrderService orderService) : ControllerBase
 		return result.IsSuccess ? CreatedAtAction(nameof(Get), new { orderId = result.Value.Id }, result.Value) : result.ToProblem();
 	}
 
+
+	[HttpPut("{id}")]
+	public async Task<IActionResult> Update([FromRoute] int id ,[FromBody] UpdateOrderRequset requset, CancellationToken cancellationToken = default)
+	{
+		var result = await _orderService.Update(id,requset, cancellationToken);
+
+		return result.IsSuccess ? NoContent() : result.ToProblem();
+	}
 }

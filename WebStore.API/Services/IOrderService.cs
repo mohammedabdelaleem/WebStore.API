@@ -9,4 +9,5 @@ public interface IOrderService
 	Task<Result<Order>> Get(int orderId, CancellationToken cancellationToken = default);
 
 	Task<Result<Order>> Add(CreateOrderRequset requset, CancellationToken cancellationToken = default);
+	Task<Result> Update(int id, UpdateOrderRequset requset, CancellationToken cancellationToken = default);
 }

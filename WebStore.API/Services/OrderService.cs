@@ -75,4 +75,22 @@ public class OrderService(AppDbContext context) : IOrderService
 		return Result.Success(order);
 
 	}
+
+	public async Task<Result> Update(int id ,UpdateOrderRequset requset, CancellationToken cancellationToken = default)
+	{
+		if(id != requset.Id)
+				return Result.Failure(OrderErrors.InvalidInfo);
+
+		var orderFromDB = await _context.Orders.SingleOrDefaultAsync(o => o.Id == id, cancellationToken);
+		
+		if(orderFromDB == null)
+			return Result.Failure(OrderErrors.NotFound);
+
+		requset.Adapt(orderFromDB);
+
+		await _context.SaveChangesAsync( cancellationToken);
+
+		return Result.Success();
+		
+	}
 }

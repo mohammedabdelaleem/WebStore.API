@@ -6,9 +6,7 @@
 	 string PickupName ,
 	 string PickupEmail ,
 	 string PickupPhoneNumber ,
-	 double OrderTotal, 
 	 //why we remove user id at update
-	 DateTime OrderDate, 
 	 string StripePaymentIntentId ,
 	 string Status 
 	 );
