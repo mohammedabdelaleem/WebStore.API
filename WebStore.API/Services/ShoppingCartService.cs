@@ -1,27 +1,32 @@
 ﻿
-using WebStore.API.Entities;
 
 namespace WebStore.API.Services;
 
 public class ShoppingCartService(
 	AppDbContext context,
-	UserManager<ApplicationUser> userManager,
 	ILogger<ShoppingCartService> logger) : IShoppingCartService
 {
 	private readonly AppDbContext _context = context;
-	private readonly UserManager<ApplicationUser> _userManager = userManager;
 	private readonly ILogger<ShoppingCartService> _logger = logger;
 
 
 	public async Task<Result<ShoppingCart>> GetShoppingCart(string userId, CancellationToken cancellationToken = default)
 	{
-		if (await _userManager.FindByIdAsync(userId) is not { })
-			return Result.Failure<ShoppingCart>(UserErrors.NotFound);
+		// becauese of redux problem
+		ShoppingCart shoppingCart ;
 
-		var shoppingCart = await _context.ShoppingCarts
-				.Include(s=>s.CartItems)
-				.ThenInclude(c=>c.MenuItem)
-				.FirstOrDefaultAsync(s=>s.UserId == userId, cancellationToken);
+		if (!await _context.Users.AnyAsync(u => u.Id == userId, cancellationToken))
+		{
+			shoppingCart = new();
+		}
+		else
+		{
+
+			shoppingCart = await _context.ShoppingCarts
+				   .Include(s => s.CartItems)
+				   .ThenInclude(c => c.MenuItem)
+				   .FirstOrDefaultAsync(s => s.UserId == userId, cancellationToken);
+		}
 
 		if(shoppingCart == null )
 			return Result.Failure<ShoppingCart>(ShoppingCartErrors.NotFound);
@@ -38,7 +43,7 @@ public class ShoppingCartService(
 	{
 		try
 		{
-			if (await _userManager.FindByIdAsync(request.UserId) is not { })
+			if (!await _context.Users.AnyAsync(u=>u.Id == request.UserId, cancellationToken))
 				return Result.Failure(UserErrors.NotFound);
 
 
