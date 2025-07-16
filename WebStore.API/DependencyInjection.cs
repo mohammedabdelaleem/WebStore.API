@@ -43,6 +43,7 @@ public static class DependencyInjection
 		services.AddScoped<IMenuItemService, MenuItemService>();
 		services.AddScoped<IShoppingCartService, ShoppingCartService>();
 		services.AddScoped<IOrderService, OrderService>();
+		services.AddScoped<IPaymentService, PaymentService>();
 
 		services.AddOptions<MailSettings>()
 			.BindConfiguration(nameof(MailSettings))
